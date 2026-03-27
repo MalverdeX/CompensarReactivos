@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+</head>
+<body>
+    <h1>Formulario de Contacto</h1>
+    <p>Este es un ejemplo de formulario HTML simple.</p>
+    
+    <form id="contactForm">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono">
+        </div>
+        
+        <div class="form-group">
+            <label for="asunto">Asunto:</label>
+            <select id="asunto" name="asunto" required>
+                <option value="">Selecciona un asunto</option>
+                <option value="consulta">Consulta general</option>
+                <option value="soporte">Soporte técnico</option>
+                <option value="sugerencia">Sugerencia</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn">Enviar Formulario</button>
+    </form>
+    
+    <div id="formResult" style="display: none;" class="result">
+        <h3>Formulario Procesado</h3>
+        <div id="resultContent"></div>
+    </div>
+    
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Mostrar resultados
+            const resultDiv = document.getElementById('formResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            resultContent.innerHTML = `
+                <p><strong>Nombre:</strong> ${data.nombre}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                <p><strong>Teléfono:</strong> ${data.telefono || 'No proporcionado'}</p>
+                <p><strong>Asunto:</strong> ${data.asunto}</p>
+                <p><strong>Mensaje:</strong> ${data.mensaje}</p>
+                <p style="margin-top: 15px; color: #27ae60;">
+                    <strong>✓ Formulario procesado con JavaScript</strong><br>
+                    En una aplicación real, estos datos se enviarían a un servidor PHP para procesamiento.
+                </p>
+            `;
+            
+            resultDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
